@@ -18,7 +18,7 @@ abstract class _HomeControllerBase with Store {
     selectedIndex = i;
   }
 
-  List<Meal> meals = DUMMY_MEALS;
+  ObservableList<Meal> meals = DUMMY_MEALS.asObservable();
 
   @observable
   String filter = '';
@@ -26,14 +26,37 @@ abstract class _HomeControllerBase with Store {
   @action
   void setFilter(String value) => filter = value;
 
-  //TODO: Fazer com que percorra todo vetor de ingredientes.
   @computed
   List<Meal> get filteredList {
+    List<Meal> filteredMeals = [];
+
     if (filter.isEmpty) {
       return [];
     }
-    return meals
-        .where((meal) => meal.ingredients[0].toLowerCase().contains(filter))
-        .toList();
+    for (var m in meals) {
+      for (var i in m.ingredients) {
+        if (!filteredMeals.contains(m) && i.toLowerCase().contains(filter)) {
+          filteredMeals.add(m);
+        }
+      }
+    }
+    return filteredMeals;
   }
+
+  @computed
+  ObservableList<Meal> get listFavoriteMeals =>
+      meals.where((meal) => meal.isFavorite).toList().asObservable();
+  // @action
+  // void addFavorite(Meal meal) {
+  //   meal.isFavorite = true;
+  //   favoriteMeals.add(meal);
+  // }
+
+  // @action
+  // void removeFavorite(Meal meal) {
+  //   if (favoriteMeals.contains(meal)) {
+  //     meal.isFavorite = false;
+  //     favoriteMeals.remove(meal);
+  //   }
+  // }
 }

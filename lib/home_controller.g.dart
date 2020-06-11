@@ -16,6 +16,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
       (_$filteredListComputed ??= Computed<List<Meal>>(() => super.filteredList,
               name: '_HomeControllerBase.filteredList'))
           .value;
+  Computed<ObservableList<Meal>> _$listFavoriteMealsComputed;
+
+  @override
+  ObservableList<Meal> get listFavoriteMeals => (_$listFavoriteMealsComputed ??=
+          Computed<ObservableList<Meal>>(() => super.listFavoriteMeals,
+              name: '_HomeControllerBase.listFavoriteMeals'))
+      .value;
 
   final _$selectedIndexAtom = Atom(name: '_HomeControllerBase.selectedIndex');
 
@@ -77,7 +84,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return '''
 selectedIndex: ${selectedIndex},
 filter: ${filter},
-filteredList: ${filteredList}
+filteredList: ${filteredList},
+listFavoriteMeals: ${listFavoriteMeals}
     ''';
   }
 }

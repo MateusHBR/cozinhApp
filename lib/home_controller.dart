@@ -26,6 +26,7 @@ abstract class _HomeControllerBase with Store {
   @action
   void setFilter(String value) => filter = value;
 
+  //TODO: Fazer com que percorra todo vetor de ingredientes.
   @computed
   List<Meal> get filteredList {
     if (filter.isEmpty) {

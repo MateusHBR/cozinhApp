@@ -26,9 +26,9 @@ class Meal {
   final bool isVegetarian;
   final Complexity complexity;
   final Cost cost;
-  final bool isFavorite;
+  bool isFavorite;
 
-  const Meal({
+  Meal({
     @required this.id,
     @required this.categories,
     @required this.title,

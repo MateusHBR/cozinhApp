@@ -2,8 +2,9 @@ import 'package:cozinhapp/model/meal.dart';
 
 import '../model/meal.dart';
 
-const DUMMY_MEALS = const [
+var DUMMY_MEALS = [
   Meal(
+    isFavorite: true,
     id: 'm1',
     categories: ['c1', 'c2'],
     title: 'Spaghetti with Tomato Sauce',
@@ -61,6 +62,7 @@ const DUMMY_MEALS = const [
     isLactoseFree: false,
   ),
   Meal(
+    isFavorite: false,
     id: 'm3',
     categories: ['c2', 'c3'],
     title: 'Classic Hamburger',

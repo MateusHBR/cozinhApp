@@ -1,3 +1,4 @@
+import 'package:cozinhapp/view/favorite_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -38,11 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: controller.pageController,
         children: <Widget>[
           HomeSearchScreen(),
-          Container(
-            height: 10,
-            width: 10,
-            color: Colors.grey,
-          ),
+          FavoriteScreen(),
         ],
       ),
       bottomNavigationBar: Observer(

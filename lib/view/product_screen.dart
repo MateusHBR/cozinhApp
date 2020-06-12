@@ -1,4 +1,7 @@
+import 'package:cozinhapp/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 import '../model/meal.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -35,6 +38,8 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Provider.of<HomeController>(context);
+
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -92,16 +97,31 @@ class ProductScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.star_border),
-        onPressed: () {},
-      ),
       // floatingActionButton: FloatingActionButton(
-      //   child: Icon(isFavorite(meal) ? Icons.star : Icons.star_border),
-      //   onPressed: () {
-      //     onToggleFavorite(meal);
-      //   },
+      //   child: Icon(Icons.star_border),
+      //   onPressed: () {},
       // ),
+      floatingActionButton: Observer(
+        builder: (_) {
+          return FloatingActionButton(
+            child: Observer(
+              builder: (_) {
+                return Icon(
+                  homeController
+                          .meals[homeController.meals
+                              .indexWhere((element) => element.id == meal.id)]
+                          .isFavorite
+                      ? Icons.star
+                      : Icons.star_border,
+                );
+              },
+            ),
+            onPressed: () {
+              homeController.toggleFavorite(meal);
+            },
+          );
+        },
+      ),
     );
   }
 }

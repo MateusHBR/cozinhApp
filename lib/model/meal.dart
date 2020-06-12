@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+part 'meal.g.dart';
 
 enum Complexity {
   Simple,
@@ -12,7 +14,9 @@ enum Cost {
   Expensive,
 }
 
-class Meal {
+class Meal = _MealBase with _$Meal;
+
+abstract class _MealBase with Store {
   final String id;
   final List<String> categories;
   final String title;
@@ -26,9 +30,11 @@ class Meal {
   final bool isVegetarian;
   final Complexity complexity;
   final Cost cost;
+
+  @observable
   bool isFavorite;
 
-  Meal({
+  _MealBase({
     @required this.id,
     @required this.categories,
     @required this.title,

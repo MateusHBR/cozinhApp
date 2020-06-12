@@ -39,6 +39,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$mealsAtom = Atom(name: '_HomeControllerBase.meals');
+
+  @override
+  ObservableList<Meal> get meals {
+    _$mealsAtom.reportRead();
+    return super.meals;
+  }
+
+  @override
+  set meals(ObservableList<Meal> value) {
+    _$mealsAtom.reportWrite(value, super.meals, () {
+      super.meals = value;
+    });
+  }
+
   final _$filterAtom = Atom(name: '_HomeControllerBase.filter');
 
   @override
@@ -80,9 +95,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void toggleFavorite(Meal meal) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.toggleFavorite');
+    try {
+      return super.toggleFavorite(meal);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 selectedIndex: ${selectedIndex},
+meals: ${meals},
 filter: ${filter},
 filteredList: ${filteredList},
 listFavoriteMeals: ${listFavoriteMeals}

@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<HomeController>(context);
     // var size = MediaQuery.of(context).size;
+    final controller = Provider.of<HomeController>(context);
     return Container(
       child: LayoutBuilder(
         builder: (_, constraint) {
@@ -22,12 +22,8 @@ class FavoriteScreen extends StatelessWidget {
                     return ListView.builder(
                       itemCount: controller.listFavoriteMeals.length,
                       itemBuilder: (ctx, index) {
-                        return Observer(
-                          builder: (_) {
-                            return MealItem(
-                              meal: controller.listFavoriteMeals[index],
-                            );
-                          },
+                        return MealItem(
+                          meal: controller.listFavoriteMeals[index],
                         );
                       },
                     );
